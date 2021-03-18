@@ -21,3 +21,27 @@ code {
 .export-quizlet:visited {
 	color: #4257b1;
 }
+
+.game {
+	display: flex;
+	height: 100vh;
+	/* background-color: #006994; */
+}
+
+.team {
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.player-group {
+	height: 50%;
+}
+
+.swimming {
+	border: 3px solid lightgreen !important;
+}
+.sinking {
+	border: 3px solid deeppink !important;
+}

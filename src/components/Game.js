@@ -8,6 +8,8 @@ import {
 	FormControlLabel,
 } from '@material-ui/core';
 import QuizletCard from './QuizletCard';
+import NoReboundNoLimitRevive from './games/NoReboundNoLimitRevive';
+import ocean from '../ocean.jpg';
 
 const MyRadio = ({ label, ...props }) => {
 	const [field] = useField(props);
@@ -24,7 +26,15 @@ export default class Game extends Component {
 
 	render() {
 		if (this.state.hasCompletedForm) {
-			return <h1>yes</h1>;
+			const { prompt, wordList, team1, team2 } = this.state.gameData;
+			return (
+				<NoReboundNoLimitRevive
+					prompt={prompt}
+					wordList={wordList}
+					team1={team1}
+					team2={team2}
+				/>
+			);
 		}
 		return (
 			<div>
@@ -33,10 +43,11 @@ export default class Game extends Component {
 						wordList: '',
 						team1: '',
 						team2: '',
+						prompt: 'term',
 						// isRandomOrder: false,
 					}}
 					onSubmit={data => {
-						const { wordList, team1, team2 } = data;
+						const { wordList, team1, team2, prompt } = data;
 						const words = wordList.split('\n').map(pair => {
 							return {
 								term: pair.split('|')[0],
@@ -51,6 +62,7 @@ export default class Game extends Component {
 								wordList: words,
 								team1: team1Members,
 								team2: team2Members,
+								prompt,
 							},
 							hasCompletedForm: true,
 						});
@@ -98,6 +110,25 @@ export default class Game extends Component {
 									as={Checkbox}
 								/>
 							</div> */}
+							<div>Prompt with:</div>
+							<MyRadio
+								name="prompt"
+								type="radio"
+								value="term"
+								label="Term"
+							/>
+							<MyRadio
+								name="prompt"
+								type="radio"
+								value="def"
+								label="Definition"
+							/>
+							<MyRadio
+								name="prompt"
+								type="radio"
+								value="both"
+								label="Both"
+							/>
 							<div>
 								<Button
 									type="submit"
