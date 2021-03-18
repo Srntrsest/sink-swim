@@ -10,13 +10,13 @@ import {
 export default class QuizletCard extends Component {
 	render() {
 		return (
-			<Card style={{ width: '40%' }}>
+			<Card style={{ width: '40%', textAlign: 'left' }}>
 				<CardContent>
 					<Typography variant="h6">
 						* Word list should be in the form of an exported Quizlet
 						set.
 					</Typography>
-					<Typography variant="subtitle">
+					<Typography variant="subtitle1">
 						When exporting your Quizlet set, make sure to export the
 						set as follows:
 						<br />
