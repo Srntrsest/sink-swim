@@ -45,3 +45,9 @@ code {
 .sinking {
 	border: 3px solid deeppink !important;
 }
+
+.footer {
+	margin-top: 30px;
+	border-top: 2px solid black;
+	padding-top: 12px;
+}

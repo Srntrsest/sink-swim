@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { Formik, Field, Form, useField } from 'formik';
-import {
-	TextField,
-	Button,
-	Checkbox,
-	Radio,
-	FormControlLabel,
-} from '@material-ui/core';
+import { TextField, Button, Radio, FormControlLabel } from '@material-ui/core';
 import QuizletCard from './QuizletCard';
 import NoReboundNoLimitRevive from './games/NoReboundNoLimitRevive';
-import ocean from '../ocean.jpg';
+import Footer from './Footer';
 
 const MyRadio = ({ label, ...props }) => {
 	const [field] = useField(props);
@@ -143,6 +137,8 @@ export default class Game extends Component {
 						</Form>
 					)}
 				</Formik>
+
+				<Footer />
 			</div>
 		);
 	}
