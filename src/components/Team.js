@@ -1,13 +1,5 @@
-import { Button } from '@material-ui/core';
 import React, { Component } from 'react';
-
-const Member = ({ name, state }) => {
-	return (
-		<Button variant="outlined" className={state} size="large">
-			{name}
-		</Button>
-	);
-};
+import Member from './Member';
 
 export default class Team extends Component {
 	constructor(props) {
@@ -17,6 +9,7 @@ export default class Team extends Component {
 			id: props.id,
 			swimming: props.members,
 			sinking: [],
+			switchTurns: props.switchTurns,
 		};
 	}
 
@@ -24,7 +17,15 @@ export default class Team extends Component {
 		return (
 			<div className="team">
 				{this.state.swimming.map(member => {
-					return <Member name={member} state="swimming" />;
+					return (
+						<Member
+							key={member}
+							name={member}
+							state="swimming"
+							teamId={this.state.id}
+							switchTurns={this.state.switchTurns}
+						/>
+					);
 				})}
 			</div>
 		);

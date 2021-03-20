@@ -50,4 +50,12 @@ code {
 	margin-top: 30px;
 	border-top: 2px solid black;
 	padding-top: 12px;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	left: 0;
+}
+
+.turn {
+	font-size: 48px;
 }
