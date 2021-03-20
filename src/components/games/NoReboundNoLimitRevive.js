@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core';
 import React, { Component } from 'react';
 import Team from '../Team';
 
@@ -20,7 +19,8 @@ export default class NoReboundNoLimitRevive extends Component {
 			this.setState({ turn: 1 });
 		}
 	};
-	switchTurns = (clickedOnTeamId, clickedOnState) => {
+
+	switchTurns = (clickedOnTeamId, clickedOnState, switchState) => {
 		const clickerTeamId = this.state.turn;
 		console.log(clickerTeamId, clickedOnTeamId, clickedOnState);
 
@@ -30,6 +30,7 @@ export default class NoReboundNoLimitRevive extends Component {
 				(clickedOnTeamId === 1 && clickedOnState === 'sinking')
 			) {
 				this.change();
+				switchState();
 			}
 		} else {
 			if (
@@ -37,6 +38,7 @@ export default class NoReboundNoLimitRevive extends Component {
 				(clickedOnTeamId === 2 && clickedOnState === 'sinking')
 			) {
 				this.change();
+				switchState();
 			}
 		}
 	};
