@@ -20,6 +20,20 @@ export default class NoReboundNoLimitRevive extends Component {
 		}
 	};
 
+	chooseWord = () => {
+		const gameData = this.state.gameData;
+		const wordList = gameData.wordList;
+		if (wordList.length === 0) {
+			return null;
+		}
+		const index = Math.floor(Math.random() * wordList.length);
+		const pair = wordList.splice(index, 1);
+		gameData.wordList = wordList;
+		this.setState({ gameData });
+
+		return pair;
+	};
+
 	switchTurns = (clickedOnTeamId, clickedOnState, switchState) => {
 		const clickerTeamId = this.state.turn;
 		console.log(clickerTeamId, clickedOnTeamId, clickedOnState);
@@ -51,12 +65,13 @@ export default class NoReboundNoLimitRevive extends Component {
 					members={this.state.gameData.team1}
 					switchTurns={this.switchTurns}
 				/>
+
+				<div className="turn">Team {this.state.turn}'s turn</div>
 				<Team
 					id={2}
 					members={this.state.gameData.team2}
 					switchTurns={this.switchTurns}
 				/>
-				<div className="turn">Team {this.state.turn}'s turn</div>
 			</div>
 		);
 	}
