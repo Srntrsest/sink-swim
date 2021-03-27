@@ -2,13 +2,13 @@ import { Button } from '@material-ui/core';
 import { Component } from 'react';
 
 export default class Member extends Component {
-	constructor({ name, state, switchTurns, teamId, ...props }) {
+	constructor(props) {
 		super(props);
 		this.state = {
-			name,
-			state,
-			switchTurns,
-			teamId,
+			name: props.name,
+			state: props.state,
+			switchTurns: props.switchTurns,
+			teamId: props.teamId,
 		};
 		this.switchState.bind(this);
 	}

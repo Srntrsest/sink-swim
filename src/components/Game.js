@@ -18,6 +18,30 @@ export default class Game extends Component {
 		};
 	}
 
+	handleSubmit = data => {
+		const { wordList, team1, team2, prompt } = data;
+		let words = wordList.split('\n');
+		words = words.map(pair => {
+			const [term, definition] = pair.split('|');
+			return {
+				term,
+				definition,
+			};
+		});
+		const team1Members = team1.split('\n');
+		const team2Members = team2.split('\n');
+
+		this.setState({
+			gameData: {
+				wordList: words,
+				team1: team1Members,
+				team2: team2Members,
+				prompt,
+			},
+			hasCompletedForm: true,
+		});
+	};
+
 	render() {
 		if (this.state.hasCompletedForm) {
 			const { prompt, wordList, team1, team2 } = this.state.gameData;
@@ -32,6 +56,11 @@ export default class Game extends Component {
 		}
 		return (
 			<div>
+				<img
+					src="/img/logo.gif"
+					height="300"
+					alt="Sink or Swim animated logo"
+				/>
 				<Formik
 					initialValues={{
 						wordList: '',
@@ -40,27 +69,7 @@ export default class Game extends Component {
 						prompt: 'term',
 						// isRandomOrder: false,
 					}}
-					onSubmit={data => {
-						const { wordList, team1, team2, prompt } = data;
-						const words = wordList.split('\n').map(pair => {
-							return {
-								term: pair.split('|')[0],
-								definition: pair.split('|')[1],
-							};
-						});
-						const team1Members = team1.split('\n');
-						const team2Members = team2.split('\n');
-
-						this.setState({
-							gameData: {
-								wordList: words,
-								team1: team1Members,
-								team2: team2Members,
-								prompt,
-							},
-							hasCompletedForm: true,
-						});
-					}}
+					onSubmit={this.handleSubmit}
 				>
 					{({ values }) => (
 						<Form>

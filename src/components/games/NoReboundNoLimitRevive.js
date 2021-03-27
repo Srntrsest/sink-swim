@@ -4,12 +4,19 @@ import Team from '../Team';
 export default class NoReboundNoLimitRevive extends Component {
 	constructor(props) {
 		super(props);
+		this.switchTurns.bind(this);
+		this.change.bind(this);
+		this.chooseWord.bind(this);
 		this.state = {
 			gameData: props,
 			turn: 1,
 		};
-		this.switchTurns.bind(this);
-		this.change.bind(this);
+		this.chooseWord();
+	}
+
+	componentDidMount() {
+		const currentWord = this.chooseWord();
+		this.setState({ currentWord });
 	}
 
 	change = () => {
@@ -21,14 +28,13 @@ export default class NoReboundNoLimitRevive extends Component {
 	};
 
 	chooseWord = () => {
-		const gameData = this.state.gameData;
+		const gameData = { ...this.state.gameData };
 		const wordList = gameData.wordList;
 		if (wordList.length === 0) {
-			return null;
+			return 'no words left';
 		}
 		const index = Math.floor(Math.random() * wordList.length);
 		const pair = wordList.splice(index, 1);
-		gameData.wordList = wordList;
 		this.setState({ gameData });
 
 		return pair;
@@ -36,7 +42,6 @@ export default class NoReboundNoLimitRevive extends Component {
 
 	switchTurns = (clickedOnTeamId, clickedOnState, switchState) => {
 		const clickerTeamId = this.state.turn;
-		console.log(clickerTeamId, clickedOnTeamId, clickedOnState);
 
 		if (clickerTeamId === 1) {
 			if (
@@ -67,6 +72,7 @@ export default class NoReboundNoLimitRevive extends Component {
 				/>
 
 				<div className="turn">Team {this.state.turn}'s turn</div>
+				<div className="current-word"></div>
 				<Team
 					id={2}
 					members={this.state.gameData.team2}
