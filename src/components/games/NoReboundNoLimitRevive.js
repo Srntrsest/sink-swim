@@ -1,6 +1,32 @@
 import React, { Component } from 'react';
 import Team from '../Team';
 
+const CurrentWord = ({ prompt, pair }) => {
+	const term = `The term is ${pair.term}.`;
+	const definition = `The definition is ${pair.definition}.`;
+	let shown;
+	switch (prompt) {
+		case 'turn':
+			shown = term;
+			break;
+		case 'definition':
+			shown = definition;
+			break;
+		case 'both':
+			const rand = Math.random();
+			if (rand < 0.5) {
+				shown = term;
+			} else {
+				shown = definition;
+			}
+			break;
+		default:
+			shown = term;
+			break;
+	}
+	return <div className="current-word">{shown}</div>;
+};
+
 export default class NoReboundNoLimitRevive extends Component {
 	constructor(props) {
 		super(props);
@@ -8,15 +34,11 @@ export default class NoReboundNoLimitRevive extends Component {
 		this.change.bind(this);
 		this.chooseWord.bind(this);
 		this.state = {
-			gameData: props,
+			...props,
 			turn: 1,
 		};
+		console.log(this.state);
 		this.chooseWord();
-	}
-
-	componentDidMount() {
-		const currentWord = this.chooseWord();
-		this.setState({ currentWord });
 	}
 
 	change = () => {
@@ -28,15 +50,16 @@ export default class NoReboundNoLimitRevive extends Component {
 	};
 
 	chooseWord = () => {
-		const gameData = { ...this.state.gameData };
+		const gameData = this.state;
 		const wordList = gameData.wordList;
 		if (wordList.length === 0) {
 			return 'no words left';
 		}
 		const index = Math.floor(Math.random() * wordList.length);
-		const pair = wordList.splice(index, 1);
+		const pair = wordList.splice(index, 1)[0];
+		gameData.currentWord = pair;
 		this.setState({ gameData });
-
+		console.log('CHOSE WORD');
 		return pair;
 	};
 
@@ -67,15 +90,20 @@ export default class NoReboundNoLimitRevive extends Component {
 			<div className="game">
 				<Team
 					id={1}
-					members={this.state.gameData.team1}
+					members={this.state.team1}
 					switchTurns={this.switchTurns}
 				/>
 
-				<div className="turn">Team {this.state.turn}'s turn</div>
-				<div className="current-word"></div>
+				<div className="middle">
+					<div className="turn">Team {this.state.turn}'s turn</div>
+					<CurrentWord
+						prompt={this.state.prompt}
+						pair={this.state.currentWord}
+					/>
+				</div>
 				<Team
 					id={2}
-					members={this.state.gameData.team2}
+					members={this.state.team2}
 					switchTurns={this.switchTurns}
 				/>
 			</div>

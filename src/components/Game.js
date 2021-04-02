@@ -28,6 +28,7 @@ export default class Game extends Component {
 				definition,
 			};
 		});
+		console.log(words);
 		const team1Members = team1.split('\n');
 		const team2Members = team2.split('\n');
 
@@ -123,7 +124,7 @@ export default class Game extends Component {
 							<MyRadio
 								name="prompt"
 								type="radio"
-								value="def"
+								value="definition"
 								label="Definition"
 							/>
 							<MyRadio
